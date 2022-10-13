@@ -45,8 +45,10 @@ class MainActivity : AppCompatActivity() {
                 // Double exclamation points mean file is guaranteed not to be null
                 submitPost(description, user, photoFile!!)
             } else {
-                // Print error log message
-                // Show toast to tell user to take a picture
+                Log.e(TAG, "Error getting picture")
+                Toast.makeText(this, "Take a picture!", Toast.LENGTH_SHORT).show()
+
+
             }
         }
         findViewById<Button>(R.id.btnTakePicture).setOnClickListener {

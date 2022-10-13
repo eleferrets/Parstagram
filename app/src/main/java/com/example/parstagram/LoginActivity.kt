@@ -56,12 +56,11 @@ class LoginActivity : AppCompatActivity() {
 
         user.signUpInBackground { e ->
             if (e == null) {
-                // Signed in
-                // Navigate to mainactivity
-                // Show toast to say successfully signed up for account
+                goToMainActivity()
+                Toast.makeText(this, "Signed up!", Toast.LENGTH_SHORT).show()
             } else {
                 e.printStackTrace()
-                // Show toast for sign up was not successful
+                Toast.makeText(this, "Error signing up", Toast.LENGTH_SHORT).show()
             }
         }
     }
