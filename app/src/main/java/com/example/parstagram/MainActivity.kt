@@ -1,7 +1,6 @@
 package com.example.parstagram
 
 import android.content.Intent
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
@@ -11,11 +10,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.Toast
-import androidx.activity.result.ActivityResultLauncher
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import com.parse.*
@@ -89,6 +84,10 @@ class MainActivity : AppCompatActivity() {
     // Send a post object to our Parse server
     private fun submitPost(description: String, user: ParseUser, file: File) {
         // Create the Post object
+        // on some click or some loading we need to wait for...
+        // on some click or some loading we need to wait for...
+        val pb = findViewById<View>(R.id.pbLoading) as ProgressBar
+        pb.visibility = ProgressBar.VISIBLE
         val post = Post()
         post.setDescription(description)
         post.setUser(user)
@@ -97,12 +96,16 @@ class MainActivity : AppCompatActivity() {
             if (exception != null) {
                 Log.e(TAG, "Error while saving post")
                 exception.printStackTrace()
-                // Show a toast to tell user something is wrong
+                Toast.makeText(this, "Error saving post", Toast.LENGTH_SHORT).show()
+
             } else {
                 Log.i(TAG, "Successfully saved post")
-                // Reset EditText to be empty
-                // Reset ImageView to be empty
+                // Reset views
+                findViewById<EditText>(R.id.description).setText("")
+                findViewById<ImageView>(R.id.imageView).setImageBitmap(null)
+
             }
+            pb.visibility = ProgressBar.INVISIBLE
         }
     }
 
