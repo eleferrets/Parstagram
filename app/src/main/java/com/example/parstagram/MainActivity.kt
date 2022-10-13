@@ -44,8 +44,7 @@ class MainActivity : AppCompatActivity() {
             if (photoFile != null) {
                 // Double exclamation points mean file is guaranteed not to be null
                 submitPost(description, user, photoFile!!)
-            }else
-            {
+            } else {
                 // Print error log message
                 // Show toast to tell user to take a picture
             }
@@ -62,25 +61,29 @@ class MainActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
-// What happens when this is clicked
+
+    // What happens when this is clicked
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.logout) {
             logoutUser()
             Toast.makeText(this, "Logged out", Toast.LENGTH_SHORT).show()
-goToLoginActivity()
+            goToLoginActivity()
         }
-    return super.onOptionsItemSelected(item)
+        return super.onOptionsItemSelected(item)
     }
+
     private fun goToLoginActivity() {
         val intent = Intent(this@MainActivity, LoginActivity::class.java)
         startActivity(intent)
         // End app after using back button by closing this activity
         finish()
     }
+
     private fun logoutUser() {
         ParseUser.logOut()
         val currentUser = ParseUser.getCurrentUser() // this will now be null
     }
+
     // Send a post object to our Parse server
     private fun submitPost(description: String, user: ParseUser, file: File) {
         // Create the Post object
@@ -88,13 +91,12 @@ goToLoginActivity()
         post.setDescription(description)
         post.setUser(user)
         post.setImage(ParseFile(file))
-        post.saveInBackground{exception ->
+        post.saveInBackground { exception ->
             if (exception != null) {
                 Log.e(TAG, "Error while saving post")
                 exception.printStackTrace()
                 // Show a toast to tell user something is wrong
-            }
-            else {
+            } else {
                 Log.i(TAG, "Successfully saved post")
                 // Reset EditText to be empty
                 // Reset ImageView to be empty
@@ -143,6 +145,7 @@ goToLoginActivity()
             }
         }
     }
+
     // Returns the File for a photo stored on disk given the fileName
     fun getPhotoFileUri(fileName: String): File {
         // Get safe storage directory for photos
@@ -161,21 +164,23 @@ goToLoginActivity()
     }
 
     // Query for all posts
-    fun queryPosts(){
+    fun queryPosts() {
         // Specify which class to query
         val query: ParseQuery<Post> = ParseQuery.getQuery(Post::class.java)
         query.include(Post.KEY_USER)
-        query.findInBackground(object: FindCallback<Post> {
+        query.findInBackground(object : FindCallback<Post> {
             override fun done(posts: MutableList<Post>?, e: ParseException?) {
-                if (e !=null) {
+                if (e != null) {
                     // Something went wrong
                     Log.e(TAG, "Error fetching posts")
-                }
-                else {
+                } else {
                     if (posts != null) {
                         // If we got something
-                        for (post in posts){
-                            Log.i(TAG, "Post: "+post.getDescription() + " , username: " + post.getUser()?.username )
+                        for (post in posts) {
+                            Log.i(
+                                TAG,
+                                "Post: " + post.getDescription() + " , username: " + post.getUser()?.username
+                            )
                         }
                     }
                 }
@@ -183,6 +188,7 @@ goToLoginActivity()
         })
 
     }
+
     companion object {
         const val TAG = "MainActivity"
     }
