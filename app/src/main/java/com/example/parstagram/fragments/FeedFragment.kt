@@ -79,7 +79,7 @@ adapter= PostAdapter(requireContext(), allPosts)
         query.addDescendingOrder("createdAt")
         // Only return the most recent 20 posts
         query.limit = 20
-        query.skip = 20
+        query.skip = allPosts.size
         query.findInBackground(object : FindCallback<Post> {
             override fun done(posts: MutableList<Post>?, e: ParseException?) {
                 if (e != null) {
