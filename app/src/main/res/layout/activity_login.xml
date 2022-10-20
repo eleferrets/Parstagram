@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FAF6F6"
     tools:context=".LoginActivity">
 
     <EditText
@@ -58,7 +59,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
-        android:backgroundTint="#3897F1"
+        android:backgroundTint="#2ECA24"
         android:text="Sign Up"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
